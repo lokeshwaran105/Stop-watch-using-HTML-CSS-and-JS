@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/style.css">
+    <!-- <script src="js/index.js"></script> -->
+</head>
+<body>
+    <div class="container">
+        <div class="clock">
+            <div class="time">
+                <p class="value min">00</p>
+                <p class="colon">:</p>
+                <p class="value sec">00</p>
+                <p class="colon">:</p>
+                <p class="value ms">00</p>
+            </div>
+
+            <div class="buttons">
+                <button onclick="start()">Start</button>
+                <button onclick="stop()">Stop</button>
+                <button onclick="reset()">Reset</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var run = false;
+        var cnt = 0;
+        var seconds = 0;
+        var minutes = 0;
+
+
+        function start() {
+            run = true;
+        }
+
+        function stop() {
+            run = false;
+        }
+
+        function reset(){
+            cnt = 0;
+            seconds = 0;
+            minutes = 0;
+            stop();
+            document.getElementsByClassName('ms')[0].innerHTML = '00';
+            document.getElementsByClassName('sec')[0].innerHTML = '00';
+            document.getElementsByClassName('min')[0].innerHTML = '00';
+        }
+
+        setInterval(
+            () => {
+                if(run == true){
+                    
+                    cnt++;
+
+                    if(cnt == 59){
+                        seconds++;
+                        cnt = 0;
+                    }
+
+                    if(seconds == 59){
+                        minutes++;
+                        sec = 0;
+                    }
+
+                    let secString = seconds;
+                    let minString = minutes;
+
+                    if(seconds < 10){
+                        secString = '0' + seconds;
+                    }
+
+                    if(minutes < 10){
+                        minString = '0' + minutes;
+                    }
+
+                    if(cnt < 10){
+                        cnt = '0' + cnt;
+                    }
+
+                    
+                    document.getElementsByClassName('ms')[0].innerHTML = cnt;
+                    document.getElementsByClassName('sec')[0].innerHTML = secString;
+                    document.getElementsByClassName('min')[0].innerHTML = minString;
+                    
+                }
+            }, 10);
+
+        
+    </script>
+</body>
+</html>
